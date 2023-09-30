@@ -4,6 +4,7 @@ from arcade import Sprite
 from arcade.types import PathOrTexture
 
 from const import *
+from toolbelt import Tool
 
 class Wall(Sprite):
     pass
@@ -15,6 +16,8 @@ class Source(Sprite):
     pass
 
 class Map():
+    selected: None | Tool = None
+    
     def __init__(self, path:str) -> None:
         self.tiled_map = arcade.tilemap.TileMap(
             path,

@@ -1,3 +1,4 @@
+import math
 import arcade
 
 from const import *
@@ -63,8 +64,14 @@ class MyGame(arcade.Window):
 
     def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
         if self.map.selected:
-            self.map.selected.center_x = x
-            self.map.selected.center_y = y
+            if (x, y) in self.map:
+                x = (math.floor(x / SPRITE_DISPLAY_SIZE)) * SPRITE_DISPLAY_SIZE
+                y = (math.floor(y / SPRITE_DISPLAY_SIZE)) * SPRITE_DISPLAY_SIZE
+                self.map.selected.left = x
+                self.map.selected.bottom = y
+            else:
+                self.map.selected.center_x = x
+                self.map.selected.center_y = y
 
 
 

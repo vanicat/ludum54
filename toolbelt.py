@@ -18,6 +18,13 @@ class Tool(AnimatedTimeBasedSprite):
     def update(self) -> None:
         self.update_animation()
         return super().update()
+    
+    def clone(self):
+        copy = Tool(self.texture, self.center_x, self.center_y, self.scale)
+        copy.properties = self.properties
+        copy.setup()
+
+        return copy
 
 class Toolbelt:
     def __init__(self) -> None:

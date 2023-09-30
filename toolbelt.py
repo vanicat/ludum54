@@ -23,6 +23,7 @@ class Toolbelt:
         )
         self.map = arcade.Scene.from_tilemap(self.tiled_map)
 
+        self.tools = self.map.get_sprite_list("tools")
 
     def update(self):
         self.map.update()

@@ -46,6 +46,8 @@ class Map():
 
     def draw(self):
         self.map.draw()
+        if self.selected:
+            self.selected.draw()
 
     def __contains__(self, pos):
         start_x = SPRITE_DISPLAY_SIZE * (TOOLS_WIDTH + 1)

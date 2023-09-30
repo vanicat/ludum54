@@ -10,7 +10,7 @@ class Tool(Sprite):
 
 class Toolbelt:
     def __init__(self) -> None:
-        load_map = arcade.tilemap.TileMap(
+        self.tiled_map = arcade.tilemap.TileMap(
             "assets/toolset.tmj",
             scaling = SPRITE_SCALING,
             layer_options = {
@@ -21,7 +21,8 @@ class Toolbelt:
             },
             use_spatial_hash = True,
         )
-        self.map = arcade.Scene.from_tilemap(load_map)
+        self.map = arcade.Scene.from_tilemap(self.tiled_map)
+
 
     def update(self):
         self.map.update()

@@ -16,7 +16,7 @@ class Source(Sprite):
 
 class Map():
     def __init__(self, path:str) -> None:
-        load_map = arcade.tilemap.TileMap(
+        self.tiled_map = arcade.tilemap.TileMap(
             path,
             scaling = SPRITE_SCALING,
             layer_options = {
@@ -36,7 +36,7 @@ class Map():
             use_spatial_hash = True,
             offset = (SPRITE_DISPLAY_SIZE * (TOOLS_WIDTH + 1), 0) # type: ignore
         )
-        self.map = arcade.Scene.from_tilemap(load_map)
+        self.map = arcade.Scene.from_tilemap(self.tiled_map)
 
     def update(self):
         self.map.update()

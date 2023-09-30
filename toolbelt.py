@@ -27,6 +27,7 @@ class Tool(AnimatedTimeBasedSprite):
         copy.textures = self.textures
         copy.properties = self.properties
         copy.frames = self.frames
+        copy.angle = self.angle
         copy.setup()
 
         return copy

@@ -59,7 +59,7 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":2,
+                 "x":1,
                  "y":9
                 }, 
                 {
@@ -125,7 +125,7 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":21.253388692148,
+                 "x":21,
                  "y":1
                 }, 
                 {
@@ -158,7 +158,7 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":38.7695689339358,
+                 "x":39,
                  "y":1
                 }, 
                 {
@@ -191,8 +191,8 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":2,
-                 "y":19.0445719868116
+                 "x":1,
+                 "y":19
                 },
             
                 {
@@ -225,8 +225,8 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":18.889241665649,
-                 "y":19.0445719868116
+                 "x":19,
+                 "y":19
                 }, 
                 {
                  "gid":5,
@@ -258,8 +258,8 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":29.3129808279399,
-                 "y":11.1999023079741
+                 "x":29,
+                 "y":11
                 }, 
                 {
                  "gid":5,
@@ -291,8 +291,8 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":30.7099767981439,
-                 "y":10.9849798510197
+                 "x":31,
+                 "y":11
                 }, 
                 {
                  "gid":2147483653,
@@ -303,7 +303,7 @@
                         {
                          "name":"bottom",
                          "type":"string",
-                         "value":"None"
+                         "value":"out"
                         }, 
                         {
                          "name":"left",
@@ -313,19 +313,19 @@
                         {
                          "name":"right",
                          "type":"string",
-                         "value":"out"
+                         "value":"in"
                         }, 
                         {
                          "name":"top",
                          "type":"string",
-                         "value":"in"
+                         "value":"None"
                         }],
-                 "rotation":-180,
+                 "rotation":-90,
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":18.889241665649,
-                 "y":20.3341067285383
+                 "x":9,
+                 "y":29
                 }, 
                 {
                  "gid":2147483653,
@@ -357,8 +357,8 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":20.9310050067163,
-                 "y":20.65649041397
+                 "x":21,
+                 "y":21
                 },
             
                 {
@@ -391,8 +391,8 @@
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":30.7099767981439,
-                 "y":28.7160825497619
+                 "x":31,
+                 "y":29
                 }, 
                 {
                  "gid":2147483653,
@@ -403,7 +403,7 @@
                         {
                          "name":"bottom",
                          "type":"string",
-                         "value":"out"
+                         "value":"None"
                         }, 
                         {
                          "name":"left",
@@ -413,19 +413,19 @@
                         {
                          "name":"right",
                          "type":"string",
-                         "value":"in"
+                         "value":"out"
                         }, 
                         {
                          "name":"top",
                          "type":"string",
-                         "value":"None"
+                         "value":"in"
                         }],
-                 "rotation":-90,
+                 "rotation":-180,
                  "type":"",
                  "visible":true,
                  "width":8,
-                 "x":9.95213090731469,
-                 "y":28.1787764073758
+                 "x":19,
+                 "y":21
                 }],
          "opacity":1,
          "type":"objectgroup",

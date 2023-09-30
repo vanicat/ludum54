@@ -1,12 +1,23 @@
 from typing import Any
 import arcade
-from arcade import Sprite
+from arcade import AnimatedTimeBasedSprite
+from arcade.hitbox import HitBox
 from arcade.types import PathOrTexture
 from const import *
 
-class Tool(Sprite):
-    def __init__(self, path_or_texture: PathOrTexture = None, scale: float = 1, center_x: float = 0, center_y: float = 0, angle: float = 0, **kwargs: Any):
-        super().__init__(path_or_texture, scale, center_x, center_y, angle, **kwargs)
+class Tool(AnimatedTimeBasedSprite):
+    def setup(self):
+        points = [
+            (-SPRITE_DISPLAY_SIZE / 2, -SPRITE_DISPLAY_SIZE / 2),
+            (SPRITE_DISPLAY_SIZE / 2, -SPRITE_DISPLAY_SIZE / 2),
+            (SPRITE_DISPLAY_SIZE / 2, SPRITE_DISPLAY_SIZE / 2),
+            (-SPRITE_DISPLAY_SIZE / 2, SPRITE_DISPLAY_SIZE / 2),
+        ]
+        self.hit_box = HitBox(points, position=(self.center_x, self.center_y))
+
+    def update(self) -> None:
+        self.update_animation()
+        return super().update()
 
 class Toolbelt:
     def __init__(self) -> None:
@@ -30,3 +41,9 @@ class Toolbelt:
 
     def draw(self):
         self.map.draw()
+
+    def setup(self):
+        for tool in self.map.get_sprite_list("tools"):
+            tool.setup()
+
+

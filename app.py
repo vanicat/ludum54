@@ -56,7 +56,10 @@ class MyGame(arcade.Window):
         """mouse press"""
 
         if self.map.selected and (x, y) in self.map:
-            self.map.set_tool()
+            if button == 4:
+                self.map.selected = None
+            elif button == 1:
+                self.map.set_tool()
         else:
             tools = arcade.get_sprites_at_point((x, y), self.toolbelt.tools)
             if tools:

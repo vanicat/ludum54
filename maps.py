@@ -44,4 +44,9 @@ class Map():
     def draw(self):
         self.map.draw()
 
+    def __contains__(self, pos):
+        start_x = SPRITE_DISPLAY_SIZE * (TOOLS_WIDTH + 1)
+        x, y = pos
+        return start_x <= x < start_x + self.tiled_map.width and 0 <= y < self.tiled_map.height
+
     

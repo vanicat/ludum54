@@ -25,9 +25,7 @@ class MyGame(arcade.Window):
 
     def setup(self):
         """ Set up the game and initialize the variables. """
-
-        # Sprite lists
-        pass
+        self.toolbelt.setup()
 
     def on_draw(self):
         """
@@ -51,6 +49,8 @@ class MyGame(arcade.Window):
 
         # Move the player
         self.map.update()
+        self.toolbelt.update()
+
 
 
 

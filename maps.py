@@ -51,7 +51,9 @@ class Map():
 
     def __contains__(self, pos):
         start_x = SPRITE_DISPLAY_SIZE * (TOOLS_WIDTH + 1)
+        width = self.tiled_map.width * SPRITE_DISPLAY_SIZE
+        height = self.tiled_map.height * SPRITE_DISPLAY_SIZE
         x, y = pos
-        return start_x <= x < start_x + self.tiled_map.width and 0 <= y < self.tiled_map.height
+        return start_x <= x < start_x + width and 0 <= y < height
 
     

@@ -40,6 +40,11 @@ class Map():
             offset = (SPRITE_DISPLAY_SIZE * (TOOLS_WIDTH + 1), 0) # type: ignore
         )
         self.map = arcade.Scene.from_tilemap(self.tiled_map)
+        self.map.add_sprite_list("conveyer")
+        self.conveyers = self.map.get_sprite_list("conveyer")
+        self.walls = self.map.get_sprite_list("wall")
+        self.source = self.map.get_sprite_list("source")
+        self.dest = self.map.get_sprite_list("destination")
 
     def update(self):
         self.map.update()
@@ -55,5 +60,20 @@ class Map():
         height = self.tiled_map.height * SPRITE_DISPLAY_SIZE
         x, y = pos
         return start_x <= x < start_x + width and 0 <= y < height
+    
+    def set_tool(self):
+        assert self.selected is not None, "cannot set unselected tools!"
+
+        pos = (self.selected.center_x, self.selected.center_y)
+        if arcade.get_sprites_at_point(pos, self.walls): return
+        if arcade.get_sprites_at_point(pos, self.dest): return
+        if arcade.get_sprites_at_point(pos, self.source): return
+
+        self.conveyers.append(self.selected.clone())
+
+
+
+
+
 
     

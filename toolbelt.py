@@ -6,6 +6,9 @@ from arcade.types import PathOrTexture
 from const import *
 
 class Tool(AnimatedTimeBasedSprite):
+    def __init__(self, path_or_texture: PathOrTexture = None, center_x: float = 0, center_y: float = 0, scale: float = 1, **kwargs):
+        super().__init__(path_or_texture, center_x, center_y, scale, **kwargs)
+
     def setup(self):
         points = [
             (-SPRITE_DISPLAY_SIZE / 2, -SPRITE_DISPLAY_SIZE / 2),
@@ -21,7 +24,9 @@ class Tool(AnimatedTimeBasedSprite):
     
     def clone(self):
         copy = Tool(self.texture, self.center_x, self.center_y, self.scale)
+        copy.textures = self.textures
         copy.properties = self.properties
+        copy.frames = self.frames
         copy.setup()
 
         return copy

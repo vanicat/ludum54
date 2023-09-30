@@ -51,6 +51,20 @@ class MyGame(arcade.Window):
         self.map.update()
         self.toolbelt.update()
 
+    def on_mouse_press(self, x, y, button, key_modifiers):
+        """mouse press"""
+
+        if self.map.selected and (x, y) in self.map:
+            self.map.set_tool()
+        else:
+            tools = arcade.get_sprites_at_point((x, y), self.toolbelt.tools)
+            if tools:
+                self.map.selected = tools[0].clone()
+
+    def on_mouse_motion(self, x: int, y: int, dx: int, dy: int):
+        if self.map.selected:
+            self.map.selected.center_x = x
+            self.map.selected.center_y = y
 
 
 

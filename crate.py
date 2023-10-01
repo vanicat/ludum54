@@ -1,6 +1,7 @@
 from typing import Any
 import arcade
 from arcade import Sprite
+from arcade import check_for_collision_with_list
 from arcade.types import PathOrTexture
 
 from const import *
@@ -31,10 +32,20 @@ class Crate(Sprite):
                 self.center_x += dx
                 self.center_y += dy
 
-                colision = arcade.check_for_collision_with_list(self, self.map.crates)
+                colision = check_for_collision_with_list(self, self.map.crates)
+                colision = colision or check_for_collision_with_list(self, self.map.walls)
                 if colision:
-                    self.center_x -= dx
-                    self.center_y -= dy
+                    if abs(dx) < abs(dy):
+                        self.center_x -= dx
+                    else:
+                        self.center_y -= dy
+                    colision = check_for_collision_with_list(self, self.map.crates)
+                    colision = colision or check_for_collision_with_list(self, self.map.walls)
+                    if colision:
+                        if abs(dx) < abs(dy):
+                            self.center_y -= dy
+                        else:
+                            self.center_x -= dx
 
                 pass
         else:

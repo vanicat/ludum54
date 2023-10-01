@@ -56,14 +56,14 @@ class Tool(AnimatedTimeBasedSprite):
     def direction(self, x, y):
         to_out = arcade.math.get_distance(x, y, self.output[0], self.output[1])
         to_in = arcade.math.get_distance(x, y, self.input[0], self.input[1])
-        if to_in < to_out * 0.9:
+        if to_in < to_out * 0.999:
             dist = arcade.math.get_distance(x, y, self.center_x, self.center_y)
             dx = (self.center_x - x) / dist
             dy = (self.center_y - y) / dist
             return (dx, dy)
         else:
             dist = arcade.math.get_distance(x, y, self.output[0], self.output[1])
-            if dist > 1:
+            if dist > 23:
                 dx = (self.output[0] - x) / dist
                 dy = (self.output[1] - y) / dist
                 return (dx, dy)

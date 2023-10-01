@@ -49,6 +49,8 @@ class Source(Sprite):
 
     def update(self):
         self.generator += 1
+        if self.map.nb_crate == 0:
+            return
         if self.generator == 80:
             sound.launch.play()
 

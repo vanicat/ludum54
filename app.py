@@ -4,6 +4,7 @@ import arcade
 from const import *
 from maps import Map
 from toolbelt import Toolbelt
+import sound
 
 class MyGame(arcade.Window):
     """

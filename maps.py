@@ -7,6 +7,8 @@ from arcade.types import PathOrTexture
 from const import *
 from crate import Crate
 from toolbelt import Tool
+import sound
+
 if TYPE_CHECKING:
     from app import MyGame
 
@@ -45,6 +47,9 @@ class Source(Sprite):
 
     def update(self):
         self.generator += 1
+        if self.generator == 80:
+            sound.launch.play()
+
         if self.generator > 100:
             self.generator -= 100
             self.map.add_crate(self.center_x, self.center_y)

@@ -6,6 +6,8 @@ from arcade.types import PathOrTexture
 from const import *
 import maps
 
+import sound
+
 class Crate(Sprite):
     def __init__(self, map:"maps.Map", center_x: float = 0, center_y: float = 0):
         self.map = map
@@ -24,3 +26,4 @@ class Crate(Sprite):
             self.center_y += dy
         else:
             self.kill()
+            sound.lost.play()

@@ -75,7 +75,7 @@
         {
          "name":"crate",
          "type":"int",
-         "value":7
+         "value":10
         }, 
         {
          "name":"goal",

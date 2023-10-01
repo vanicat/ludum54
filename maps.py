@@ -5,7 +5,10 @@ from arcade import Sprite
 from arcade.types import PathOrTexture
 
 from const import *
+from crate import Crate
 from toolbelt import Tool
+if TYPE_CHECKING:
+    from app import MyGame
 
 class Wall(Sprite):
     pass
@@ -14,7 +17,16 @@ class Dest(Sprite):
     pass
 
 class Source(Sprite):
-    pass
+    def __init__(self, path_or_texture: PathOrTexture = None, scale: float = 1, center_x: float = 0, center_y: float = 0, angle: float = 0, **kwargs: Any):
+        self.generator = 0
+        self.map = kwargs["map"]
+        super().__init__(path_or_texture, scale, center_x, center_y, angle, **kwargs)
+
+    def update(self):
+        self.generator += 1
+        if self.generator > 100:
+            self.generator -= 100
+            self.map.add_crate(self.center_x, self.center_y)
 
 
 OFFSET = SPRITE_DISPLAY_SIZE * (TOOLS_WIDTH + 1)
@@ -38,7 +50,10 @@ class Map():
                 },
                 "source": {
                     "use_spatial_hash": True,
-                    "custom_class": Source
+                    "custom_class": Source,
+                    "custom_class_args" : {
+                        "map": self
+                    }
                 },
                 "destination": {
                     "use_spatial_hash": True,
@@ -49,8 +64,13 @@ class Map():
             offset = (OFFSET, 0) # type: ignore
         )
         self.map = arcade.Scene.from_tilemap(self.tiled_map)
+
         self.map.add_sprite_list("conveyer")
         self.conveyers = self.map.get_sprite_list("conveyer")
+
+        self.map.add_sprite_list("crate")
+        self.crates = self.map.get_sprite_list("crate")
+
         self.walls = self.map.get_sprite_list("wall")
         self.source = self.map.get_sprite_list("source")
         self.dest = self.map.get_sprite_list("destination")
@@ -93,13 +113,13 @@ class Map():
         assert self.selected is not None, "cannot set unselected tools!"
 
         pos = (self.selected.center_x, self.selected.center_y)
-        if arcade.get_sprites_at_point(pos, self.walls): return
-        if arcade.get_sprites_at_point(pos, self.dest): return
-        if arcade.get_sprites_at_point(pos, self.source): return
+        at_pos = self[pos]
+        if at_pos: return
 
         self.conveyers.append(self.selected.clone())
 
-
+    def add_crate(self, x:float, y:float):
+        self.crates.append(Crate(self, x, y))
 
 
 

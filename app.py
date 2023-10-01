@@ -21,7 +21,7 @@ class MyGame(arcade.Window):
         # Set the background color
         self.background_color = arcade.color.AIR_FORCE_BLUE
 
-        self.map = Map("assets/first map.tmj")
+        self.map = Map("assets/first map.tmj", self)
         self.toolbelt = Toolbelt()
 
     def setup(self):
@@ -49,7 +49,7 @@ class MyGame(arcade.Window):
         """ Movement and game logic """
 
         # Move the player
-        self.map.update()
+        self.map.update(delta_time)
         self.toolbelt.update()
 
     def on_mouse_press(self, x, y, button, key_modifiers):

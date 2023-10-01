@@ -18,7 +18,9 @@ class Source(Sprite):
 class Map():
     selected: None | Tool = None
     
-    def __init__(self, path:str) -> None:
+    def __init__(self, path:str, game:"MyGame") -> None:
+        self.game = game
+
         self.tiled_map = arcade.tilemap.TileMap(
             path,
             scaling = SPRITE_SCALING,
@@ -46,7 +48,7 @@ class Map():
         self.source = self.map.get_sprite_list("source")
         self.dest = self.map.get_sprite_list("destination")
 
-    def update(self):
+    def update(self, deltatime):
         self.map.update()
 
     def draw(self):

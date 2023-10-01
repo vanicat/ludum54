@@ -4,3 +4,8 @@ __pycache__/*
 .mypy_cache/*
 .vscode/*
 lib/arcade/*
+build/*
+assets/maps.tiled-session
+app.build/*
+app.cmd
+app.exe

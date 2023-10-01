@@ -31,9 +31,10 @@ class Dest(Sprite):
         self._direction = int_to_direction[self.properties["direction"]]
 
     def direction(self, *args):
-        return self._direction
+        return "win"
 
 class Source(Sprite):
+    map: "Map"
     def __init__(self, path_or_texture: PathOrTexture = None, scale: float = 1, center_x: float = 0, center_y: float = 0, angle: float = 0, **kwargs: Any):
         self.generator = 0
         self.map = kwargs["map"]
@@ -146,14 +147,25 @@ class Map():
 
         pos = (self.selected.center_x, self.selected.center_y)
         at_pos = self[pos]
-        if at_pos: return
+        if at_pos:
+            if isinstance(at_pos, Tool):
+                at_pos.kill()
+            else:
+                return
 
         clone = self.selected.clone()
         self[clone.center_x, clone.center_y] = clone
         self.conveyers.append(clone)
 
     def add_crate(self, x:float, y:float):
-        self.crates.append(Crate(self, x, y))
+        #sound.launch.play()
+        #sound.play_sound(sound.launch)
+
+        new_crate = Crate(self, x, y)
+        if arcade.check_for_collision_with_list(new_crate, self.crates):
+            sound.lost.play()
+        else:
+            self.crates.append(new_crate)
 
 
 

@@ -15,15 +15,27 @@ class Crate(Sprite):
         texture = arcade.load_texture("assets/tiles.png", 
                                       x = 0, y = 4 * SPRITE_SIZE, 
                                       width=SPRITE_SIZE, height=SPRITE_SIZE)
+        
         super().__init__(texture, SPRITE_SCALING, center_x, center_y, 0)
 
     def update(self):
         under = self.map[(self.center_x, self.center_y)]
         if under and (dir := under.direction(self.center_x, self.center_y)):
-            dx, dy = dir
-            
-            self.center_x += dx
-            self.center_y += dy
+            if dir == "win":
+                self.kill()
+                sound.yeah.play()
+            else:
+                dx, dy = dir
+                
+                self.center_x += dx
+                self.center_y += dy
+
+                colision = arcade.check_for_collision_with_list(self, self.map.crates)
+                if colision:
+                    self.center_x -= dx
+                    self.center_y -= dy
+
+                pass
         else:
             self.kill()
             sound.lost.play()

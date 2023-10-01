@@ -2,6 +2,12 @@
 <tileset version="1.10" tiledversion="1.10.2" name="tiles" tilewidth="8" tileheight="8" tilecount="40" columns="8">
  <image source="tiles.png" width="64" height="40"/>
  <tile id="0">
+  <properties>
+   <property name="bottom" value="in"/>
+   <property name="left" value="None"/>
+   <property name="right" value="None"/>
+   <property name="top" value="out"/>
+  </properties>
   <animation>
    <frame tileid="0" duration="100"/>
    <frame tileid="1" duration="100"/>

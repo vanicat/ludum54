@@ -88,6 +88,10 @@ class Map():
                 "destination": {
                     "use_spatial_hash": True,
                     "custom_class": Dest
+                },
+                "conveyer": {
+                    "use_spatial_hash": True,
+                    "custom_class": Tool
                 }
             },
             use_spatial_hash = True,
@@ -103,7 +107,8 @@ class Map():
 
         self.map = arcade.Scene.from_tilemap(self.tiled_map)
 
-        self.map.add_sprite_list("conveyer")
+        if "conveyer" not in self.map:
+            self.map.add_sprite_list("conveyer")
         self.conveyers = self.map.get_sprite_list("conveyer")
 
         self.map.add_sprite_list("crate")
@@ -117,8 +122,9 @@ class Map():
                      for _ in range(int(self.tiled_map.width))]
 
         item:Source | Wall | Dest | Tool
-        for item in chain(self.walls, self.source, self.dest):
-            item.setup()
+        for item in chain(self.walls, self.source, self.dest, self.conveyers):
+            if "setup" in dir(item):
+                item.setup()
             self[item.center_x, item.center_y] = item
 
         if self.tiled_map.properties and "display_text" in self.tiled_map.properties:

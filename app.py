@@ -9,6 +9,7 @@ import sound
 levels = [
     "assets/first map.tmj",
     "assets/second map.tmj",
+    "assets/final.tmj"
 ]
 
 
@@ -61,7 +62,7 @@ class MyGame(arcade.Window):
         if self.map.goal == 0:
             level = self.level + 1
             if level >= len(levels):
-                level = 0
+                level = self.level
             self.set_level(level)
             sound.yeah.play()
         elif self.map.nb_crate + len(self.map.crates) == 0:

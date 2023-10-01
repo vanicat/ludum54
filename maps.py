@@ -1,4 +1,5 @@
-from typing import Any, Self
+from itertools import chain
+from typing import TYPE_CHECKING, Any, Optional, Self
 import arcade
 from arcade import Sprite
 from arcade.types import PathOrTexture
@@ -15,8 +16,14 @@ class Dest(Sprite):
 class Source(Sprite):
     pass
 
+
+OFFSET = SPRITE_DISPLAY_SIZE * (TOOLS_WIDTH + 1)
+
+
 class Map():
     selected: None | Tool = None
+    tiled_map: arcade.tilemap.TileMap
+    grid: list[list[None | Source | Wall | Dest | Tool]]
     
     def __init__(self, path:str, game:"MyGame") -> None:
         self.game = game
@@ -39,7 +46,7 @@ class Map():
                 }
             },
             use_spatial_hash = True,
-            offset = (SPRITE_DISPLAY_SIZE * (TOOLS_WIDTH + 1), 0) # type: ignore
+            offset = (OFFSET, 0) # type: ignore
         )
         self.map = arcade.Scene.from_tilemap(self.tiled_map)
         self.map.add_sprite_list("conveyer")
@@ -47,6 +54,20 @@ class Map():
         self.walls = self.map.get_sprite_list("wall")
         self.source = self.map.get_sprite_list("source")
         self.dest = self.map.get_sprite_list("destination")
+
+        self.grid = [[None for _ in range(int(self.tiled_map.height))]
+                     for _ in range(int(self.tiled_map.width))]
+
+        item:Source | Wall | Dest | Tool
+        for item in chain(self.walls, self.source, self.dest):
+            x, y = self._get_grid_pos(item.center_x, item.center_y)
+            self.grid[x][y] = item
+
+    def _get_grid_pos(self, x, y):
+        x = int((x - OFFSET) // SPRITE_DISPLAY_SIZE)
+        y = int(y // SPRITE_DISPLAY_SIZE)
+        return x,y
+            
 
     def update(self, deltatime):
         self.map.update()
@@ -62,6 +83,11 @@ class Map():
         height = self.tiled_map.height * SPRITE_DISPLAY_SIZE
         x, y = pos
         return start_x <= x < start_x + width and 0 <= y < height
+    
+    def __getitem__(self, pos):
+        x, y = pos
+        x, y = self._get_grid_pos(x, y)
+        return self.grid[x][y]
     
     def set_tool(self):
         assert self.selected is not None, "cannot set unselected tools!"

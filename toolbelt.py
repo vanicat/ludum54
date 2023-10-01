@@ -2,6 +2,7 @@ from math import hypot
 from typing import Any
 import arcade
 from arcade import AnimatedTimeBasedSprite
+from arcade import Text
 from arcade.hitbox import HitBox
 from arcade.types import PathOrTexture
 from const import *
@@ -85,13 +86,30 @@ class Toolbelt:
         )
         self.map = arcade.Scene.from_tilemap(self.tiled_map)
 
+        def _place_text(obj, txt):
+            start_x, start_y = obj.coordinates
+            start_y = self.tiled_map.height * SPRITE_SIZE - start_y #TODO: fix arcade, not here!
+            return Text(txt, start_x * SPRITE_SCALING, start_y * SPRITE_SCALING, align="center", width=obj.size.width, font_size=40)
+            
+        for obj in self.tiled_map.get_tilemap_layer("osd").tiled_objects:
+            if obj.name == "remaining":
+               self.remain =  _place_text(obj, "... crate left")
+            elif obj.name == "goal":
+                self.goal =  _place_text(obj, "... to deliver")
+
         self.tools = self.map.get_sprite_list("tools")
 
-    def update(self):
+
+
+    def update(self, nb, goal):
         self.map.update()
+        self.remain.text = f"{nb:3} crate left"
+        self.goal.text = f"{goal:3} to deliver"
 
     def draw(self):
         self.map.draw()
+        self.remain.draw()
+        self.goal.draw()
 
     def setup(self):
         for tool in self.map.get_sprite_list("tools"):

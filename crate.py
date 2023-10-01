@@ -24,6 +24,7 @@ class Crate(Sprite):
             if dir == "win":
                 self.kill()
                 sound.yeah.play()
+                self.map.goal -= 1
             else:
                 dx, dy = dir
                 

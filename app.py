@@ -51,7 +51,8 @@ class MyGame(arcade.Window):
 
         # Move the player
         self.map.update(delta_time)
-        self.toolbelt.update()
+        self.toolbelt.update(self.map.nb_crate, self.map.goal)
+
 
     def on_mouse_press(self, x, y, button, key_modifiers):
         """mouse press"""

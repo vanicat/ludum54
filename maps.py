@@ -63,6 +63,8 @@ class Map():
     selected: None | Tool = None
     tiled_map: arcade.tilemap.TileMap
     grid: list[list[None | Source | Wall | Dest | Tool]]
+    nb_crate: int
+    goal: int
     
     def __init__(self, path:str, game:"MyGame") -> None:
         self.game = game
@@ -90,6 +92,14 @@ class Map():
             use_spatial_hash = True,
             offset = (OFFSET, 0) # type: ignore
         )
+        assert self.tiled_map.properties
+        goal = self.tiled_map.properties["goal"]
+        assert isinstance(goal, int)
+        self.goal = goal
+        nb_crate = self.tiled_map.properties["crate"]
+        assert isinstance(nb_crate, int)
+        self.nb_crate = nb_crate
+
         self.map = arcade.Scene.from_tilemap(self.tiled_map)
 
         self.map.add_sprite_list("conveyer")
@@ -160,6 +170,8 @@ class Map():
     def add_crate(self, x:float, y:float):
         #sound.launch.play()
         #sound.play_sound(sound.launch)
+
+        self.nb_crate -= 1
 
         new_crate = Crate(self, x, y)
         if arcade.check_for_collision_with_list(new_crate, self.crates):

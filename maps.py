@@ -173,11 +173,14 @@ class Map():
 
         self.nb_crate -= 1
 
-        new_crate = Crate(self, x, y)
-        if arcade.check_for_collision_with_list(new_crate, self.crates):
-            sound.lost.play()
+        if self.nb_crate > 0:
+            new_crate = Crate(self, x, y)
+            if arcade.check_for_collision_with_list(new_crate, self.crates):
+                sound.lost.play()
+            else:
+                self.crates.append(new_crate)
         else:
-            self.crates.append(new_crate)
+            self.nb_crate = 0
 
 
 

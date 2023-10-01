@@ -1,3 +1,4 @@
+import json
 import math
 import arcade
 
@@ -6,12 +7,8 @@ from maps import Map
 from toolbelt import Toolbelt
 import sound
 
-levels = [
-    "assets/first map.tmj",
-    "assets/second map.tmj",
-    "assets/final.tmj"
-]
-
+with open("assets/levels.json") as f:
+    levels = json.load(f)
 
 class MyGame(arcade.Window):
     """

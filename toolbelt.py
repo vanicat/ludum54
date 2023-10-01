@@ -91,7 +91,9 @@ class Toolbelt:
             start_y = self.tiled_map.height * SPRITE_SIZE - start_y #TODO: fix arcade, not here!
             return Text(txt, start_x * SPRITE_SCALING, start_y * SPRITE_SCALING, align="center", width=obj.size.width, font_size=40)
             
-        for obj in self.tiled_map.get_tilemap_layer("osd").tiled_objects:
+        osd = self.tiled_map.get_tilemap_layer("osd")
+        assert osd is not None
+        for obj in osd.tiled_objects: # type: ignore
             if obj.name == "remaining":
                self.remain =  _place_text(obj, "... crate left")
             elif obj.name == "goal":

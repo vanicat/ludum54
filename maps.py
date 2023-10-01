@@ -11,16 +11,37 @@ if TYPE_CHECKING:
     from app import MyGame
 
 class Wall(Sprite):
-    pass
+    def setup(self):
+        pass
+
+    def direction(self, *args):
+        return None
+
+int_to_direction = {
+    0: (0, 1),
+    1: (1, 0),
+    2: (0, -1),
+    3: (-1, 0)
+}
 
 class Dest(Sprite):
-    pass
+    def setup(self):
+        self._direction = int_to_direction[self.properties["direction"]]
+
+    def direction(self, *args):
+        return self._direction
 
 class Source(Sprite):
     def __init__(self, path_or_texture: PathOrTexture = None, scale: float = 1, center_x: float = 0, center_y: float = 0, angle: float = 0, **kwargs: Any):
         self.generator = 0
         self.map = kwargs["map"]
         super().__init__(path_or_texture, scale, center_x, center_y, angle, **kwargs)
+
+    def setup(self):
+        self._direction = int_to_direction[self.properties["direction"]]
+
+    def direction(self, *args):
+        return self._direction
 
     def update(self):
         self.generator += 1
@@ -80,8 +101,8 @@ class Map():
 
         item:Source | Wall | Dest | Tool
         for item in chain(self.walls, self.source, self.dest):
-            x, y = self._get_grid_pos(item.center_x, item.center_y)
-            self.grid[x][y] = item
+            item.setup()
+            self[item.center_x, item.center_y] = item
 
     def _get_grid_pos(self, x, y):
         x = int((x - OFFSET) // SPRITE_DISPLAY_SIZE)
@@ -109,6 +130,12 @@ class Map():
         x, y = self._get_grid_pos(x, y)
         return self.grid[x][y]
     
+    def __setitem__(self, pos, value):
+        x, y = pos
+        x, y = self._get_grid_pos(x, y)
+        self.grid[x][y] = value
+
+    
     def set_tool(self):
         assert self.selected is not None, "cannot set unselected tools!"
 
@@ -116,7 +143,9 @@ class Map():
         at_pos = self[pos]
         if at_pos: return
 
-        self.conveyers.append(self.selected.clone())
+        clone = self.selected.clone()
+        self[clone.center_x, clone.center_y] = clone
+        self.conveyers.append(clone)
 
     def add_crate(self, x:float, y:float):
         self.crates.append(Crate(self, x, y))

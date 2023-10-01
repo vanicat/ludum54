@@ -16,4 +16,11 @@ class Crate(Sprite):
         super().__init__(texture, SPRITE_SCALING, center_x, center_y, 0)
 
     def update(self):
-        pass    
+        under = self.map[(self.center_x, self.center_y)]
+        if under and (dir := under.direction(self.center_x, self.center_y)):
+            dx, dy = dir
+            
+            self.center_x += dx
+            self.center_y += dy
+        else:
+            self.kill()

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.10.2" name="tiles" tilewidth="8" tileheight="8" tilecount="40" columns="8">
- <image source="tiles.png" width="64" height="40"/>
+<tileset version="1.10" tiledversion="1.10.2" name="tiles" tilewidth="8" tileheight="8" tilecount="48" columns="8">
+ <image source="tiles.png" width="64" height="48"/>
  <tile id="0">
   <properties>
    <property name="bottom" value="in"/>
@@ -90,10 +90,21 @@
   </properties>
  </tile>
  <wangsets>
-  <wangset name="brique" type="corner" tile="-1">
+  <wangset name="Jeu de Tuiles Sans Nom" type="mixed" tile="33">
    <wangcolor name="" color="#ff0000" tile="-1" probability="1"/>
-   <wangtile tileid="16" wangid="0,0,0,1,0,1,0,0"/>
-   <wangtile tileid="17" wangid="0,0,0,1,0,1,0,1"/>
+   <wangtile tileid="33" wangid="1,1,1,1,1,1,1,1"/>
+   <wangtile tileid="34" wangid="0,0,1,1,1,0,0,0"/>
+   <wangtile tileid="35" wangid="0,0,1,1,1,1,1,0"/>
+   <wangtile tileid="36" wangid="0,0,0,0,1,1,1,0"/>
+   <wangtile tileid="37" wangid="1,1,1,1,1,0,0,0"/>
+   <wangtile tileid="38" wangid="0,0,0,0,0,1,1,1"/>
+   <wangtile tileid="39" wangid="1,1,1,0,0,0,0,0"/>
+   <wangtile tileid="40" wangid="1,1,1,0,0,0,1,1"/>
+   <wangtile tileid="41" wangid="1,0,0,0,0,0,1,1"/>
+   <wangtile tileid="42" wangid="1,1,1,1,1,1,1,0"/>
+   <wangtile tileid="43" wangid="1,1,1,0,1,1,1,1"/>
+   <wangtile tileid="44" wangid="1,1,1,1,1,0,1,1"/>
+   <wangtile tileid="45" wangid="1,0,1,1,1,1,1,1"/>
   </wangset>
  </wangsets>
 </tileset>

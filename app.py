@@ -6,6 +6,12 @@ from maps import Map
 from toolbelt import Toolbelt
 import sound
 
+levels = [
+    "assets/first map.tmj",
+    "assets/second map.tmj",
+]
+
+
 class MyGame(arcade.Window):
     """
     Main application class.
@@ -22,7 +28,8 @@ class MyGame(arcade.Window):
         # Set the background color
         self.background_color = arcade.color.AIR_FORCE_BLUE
 
-        self.map = Map("assets/first map.tmj", self)
+        self.level = 0
+        self.map = Map(levels[0], self)
         self.toolbelt = Toolbelt()
 
     def setup(self):
@@ -51,6 +58,15 @@ class MyGame(arcade.Window):
 
         # Move the player
         self.map.update(delta_time)
+        if self.map.goal == 0:
+            self.level += 1
+            if self.level >= len(levels):
+                self.level = 0
+            self.map = Map(levels[self.level], self)
+            sound.yeah.play()
+        elif self.map.nb_crate + len(self.map.crates) == 0:
+            self.level = 0
+            self.map = Map(levels[self.level], self)
         self.toolbelt.update(self.map.nb_crate, self.map.goal)
 
 

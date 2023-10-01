@@ -2,6 +2,7 @@ from itertools import chain
 from typing import TYPE_CHECKING, Any, Optional, Self
 import arcade
 from arcade import Sprite
+from arcade import Text
 from arcade.types import PathOrTexture
 
 from const import *
@@ -120,6 +121,16 @@ class Map():
             item.setup()
             self[item.center_x, item.center_y] = item
 
+        if self.tiled_map.properties and "display_text" in self.tiled_map.properties:
+            self.disp_text = Text(self.tiled_map.properties["display_text"], 
+                                  start_x=370, start_y=500,
+                                  align="center",
+                                  width=1000,
+                                  font_size=40,
+                                  multiline=True)
+        else:
+            self.disp_text = None
+
     def _get_grid_pos(self, x, y):
         x = int((x - OFFSET) // SPRITE_DISPLAY_SIZE)
         y = int(y // SPRITE_DISPLAY_SIZE)
@@ -130,6 +141,8 @@ class Map():
         self.map.update()
 
     def draw(self):
+        if self.disp_text:
+            self.disp_text.draw()
         self.map.draw()
         if self.selected:
             self.selected.draw()

@@ -59,15 +59,18 @@ class MyGame(arcade.Window):
         # Move the player
         self.map.update(delta_time)
         if self.map.goal == 0:
-            self.level += 1
-            if self.level >= len(levels):
-                self.level = 0
-            self.map = Map(levels[self.level], self)
+            level = self.level + 1
+            if level >= len(levels):
+                level = 0
+            self.set_level(level)
             sound.yeah.play()
         elif self.map.nb_crate + len(self.map.crates) == 0:
-            self.level = 0
-            self.map = Map(levels[self.level], self)
+            self.set_level(0)
         self.toolbelt.update(self.map.nb_crate, self.map.goal)
+
+    def set_level(self, level):
+        self.level = level
+        self.map = Map(levels[self.level], self)
 
 
     def on_mouse_press(self, x, y, button, key_modifiers):
@@ -94,6 +97,13 @@ class MyGame(arcade.Window):
                 self.map.selected.center_x = x
                 self.map.selected.center_y = y
 
+    def on_key_press(self, symbol: int, modifiers: int):
+        if symbol in [98, 87, 113]:
+            self.set_level(0)
+        elif symbol == 65307:
+            arcade.exit()
+
+        return super().on_key_press(symbol, modifiers)
 
 
 def main():

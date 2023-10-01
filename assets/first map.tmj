@@ -78,6 +78,11 @@
          "value":40
         }, 
         {
+         "name":"display_text",
+         "type":"string",
+         "value":"ESC to quit,\nQ to restart,\nFor the rest, use the mouse."
+        }, 
+        {
          "name":"goal",
          "type":"int",
          "value":10
